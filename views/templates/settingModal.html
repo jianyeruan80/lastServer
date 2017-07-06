@@ -1,0 +1,40 @@
+  <ion-modal-view style="width:100%;height:100%;top:0;left:0!important">
+      <ion-header-bar>
+         <h1 class = "title">Setting</h1>
+         <button class = "button icon icon-right ion-ios-close-outline" 
+            ng-click = "closeSetModal()"></button>
+      </ion-header-bar>
+      <ion-content>
+
+  <div class="formcontainer">
+   <form ng-submit="settingSave()" >
+    group:<input  ng-model="appData.set.group" />
+    Category:<input ng-model="appData.set.category" />
+    item:<input ng-model="appData.set.item" /><br/><br/>
+  
+   <div> type:    ========================   <span ng-click="add();"> +add</span></div>
+   
+     values:
+               <div ng-repeat="item in appData.set.values">
+                
+                 <select name="type" id="type" ng-model="item.type" style="width:100px;">
+                  <option value="input">input</option>
+                  <option value="checkbox">checkbox</option>
+                  <option value="radio">radio</option>
+                  <option value="select">select</option></select>
+                  name:<input  ng-model="item.name" />
+                  
+                  value:<input  ng-model="item.value" style="width:70%" />
+                  <button>-</button>
+                </div>    
+   
+ order:<input ng-model="appData.set.order" />  
+    merchantId:<input ng-model="appData.set.merchantId" />  
+       
+
+     <div class="submit">
+      <input type="submit" value="Save" id="form_button" />
+    </div>
+           </form>
+
+     </ion-content></ion-modal-view>

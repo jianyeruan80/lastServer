@@ -1,0 +1,6 @@
+#Floder#
+bin/
+node_modules/
+logs/
+public/
+daemon/

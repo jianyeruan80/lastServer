@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="reportApp">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Report</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/bootstrap-select.min.css" rel="stylesheet">
+        <link href="css/daterangepicker.css" rel="stylesheet"/>
+        <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/ng-table.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body ng-controller="IndexPageController">
+        <div id="page-wrapper">
+            <div class="sidebar">
+                <h3 style="color: white;">Welcome</h3>
+                <div class="img-box">
+                    <i class="fa fa-user fa-5x" aria-hidden="true"></i>
+                </div>
+                <h1>Boss</h1>
+                <select id="staff-list" class="selectpicker" data-width="100%" data-size="5">
+                  <option value="">All</option>
+                  <option ng-repeat="staff in staffList" value="{{staff._id}}">{{staff.userName}}</option>
+                </select>
+                <button class="btn btn-secondary btn-lg" type="button" ng-click="exitPage()">Exit</button>
+            </div>
+            <div class="content-page">
+                <div class="page-header row">
+                    <h2 class="col-md-5"><b>REPORT</b></h2>
+                    <div id="reportrange" class="col-md-5 text-center">
+                        <i class="fa fa-calendar"></i>
+                        <span></span><b class="caret"></b>
+                    </div>
+                    <div>
+                        <span class="col-md-1">
+                            <a ng-click="generateSaleSummary()"><i class="fa fa-search fa-2x"></i></a>
+                        </span>
+                    </div>
+                </div>
+                <div class="page-body row">
+                    <div class="col-md-6">
+                        <h3 class="text-left">Sales Summary</h3>
+                        <fieldset class="top-bottom-border">
+                            <div class="row">
+                                <div class="col-md-offset-1 col-md-5">
+                                    <h4>Grand Total</h4>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" readonly ng-model="grandTotal">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="button" ng-click="generateSummaryList('GRAND_TOTAL')">Detail</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-offset-1 col-md-5">
+                                    <h4>Subtotal</h4>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" readonly ng-model="subTotal">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="button" ng-click="generateSummaryList('SUBTOTAL')">Detail</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-offset-1 col-md-5">
+                                    <h4>Tax Total</h4>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" readonly ng-model="taxTotal">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="button" ng-click="generateSummaryList('TAXTOTAL')">Detail</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-offset-1 col-md-5">
+                                    <h4># of Order</h4>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" readonly ng-model="numOfOrder">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="button" ng-click="generateSummaryList('OF_ORDER')">Detail</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-offset-1 col-md-5">
+                                    <h4>Tip Total</h4>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" readonly ng-model="tipTotal">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="button" ng-click="generateSummaryList('TIP_TOTAL')">Detail</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-offset-1 col-md-5">
+                                    <h4>Charge Total</h4>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" readonly ng-model="chargeTotal">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="button" ng-click="generateSummaryList('CHARGE_TOTAL')">Detail</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-offset-1 col-md-5">
+                                    <h4>Discount Total</h4>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" readonly ng-model="discountTotal">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="button" ng-click="generateSummaryList('DISCOUNT_TOTAL')">Detail</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-offset-1 col-md-5">
+                                    <h4># of Void</h4>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" readonly ng-model="numOfVoidOrder">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="button" ng-click="generateSummaryList('OF_VOID')">Detail</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-offset-1 col-md-5">
+                                    <h4>Void Grand Total</h4>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" readonly ng-model="voidTotal">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="button" ng-click="generateSummaryList('VOID_GRAND_TOTAL')">Detail</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <fieldset>
+                                <legend>Order Type</legend>
+                                <div class="row">
+                                    <div class="col-md-offset-1 col-md-5">
+                                        <h4>Laundry</h4>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <input class="form-control" type="text" readonly ng-model="laundry">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary" type="button" ng-click="generateSummaryList('LAUNDRY')">Detail</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-offset-1 col-md-5">
+                                        <h4>Merchandise</h4>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <input class="form-control" type="text" readonly ng-model="merchandise">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary" type="button" ng-click="generateSummaryList('MERCHANDISE')">Detail</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Payment Type</legend>
+                                <div class="row">
+                                    <div class="col-md-offset-1 col-md-5">
+                                        <h4>Cash</h4>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <input class="form-control" type="text" readonly ng-model="cash">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary" type="button" ng-click="generateSummaryList('CASH')">Detail</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-offset-1 col-md-5">
+                                        <h4>Credit</h4>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <input class="form-control" type="text" readonly ng-model="credit">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary" type="button" ng-click="generateSummaryList('CREDIT')">Detail</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <h3 id="order-summary-label">Order Details</h3>
+                        <table ng-table="tableParams" class="table">
+                            <tr ng-repeat="orderDetail in $data">
+                                <td ng-if="showNum" data-title="'No.'" sortable="'orderNo'">{{orderDetail.orderNo}}</td>
+                                <td ng-if="showType" data-title="'Type'" sortable="'orderType'">{{orderDetail.orderType}}</td>
+                                <td ng-if="showStatu" data-title="'Statu'" sortable="'status'">{{orderDetail.status}}</td>
+                                <td ng-if="showDiscount" data-title="'Discount'" sortable="'discount'">{{orderDetail.discount | currency}}</td>
+                                <!-- <td ng-if="showCharge" data-title="'Charge'" sortable="'charge'">{{orderDetail.charge | currency}}</td> -->
+                                <td ng-if="showTip" data-title="'Tip'" sortable="'tip'">{{orderDetail.tip | currency}}</td>
+                                <td ng-if="showTax" data-title="'Tax'" sortable="'tax'">{{orderDetail.tax | currency}}</td>
+                                <td ng-if="showSubtotal" data-title="'SubTotal'" sortable="'subTotal'">{{orderDetail.subTotal | currency}}</td>
+                                <td ng-if="showTotal" data-title="'Total'" sortable="'grandTotal'">{{orderDetail.grandTotal | currency}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="js/lib/jquery.min.js"></script>
+        <script src="js/lib/bootstrap.min.js"></script>
+        <script src="js/lib/bootstrap-select.min.js"></script>
+        <script src="js/lib/angular.min.js"></script>
+        <script src="js/lib/moment.min.js"></script>
+        <script src="js/lib/daterangepicker.js"></script>
+        <script src="js/lib/xml2json.min.js"></script>
+        <script src="js/lib/ng-table.min.js"></script>
+        <script src="js/util.js"></script>
+        <script src="js/systemLanguage.js"></script>
+        <script src="js/mainController.js"></script>
+    </body>
+</html>
